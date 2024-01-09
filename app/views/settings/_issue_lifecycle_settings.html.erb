@@ -1,0 +1,49 @@
+# <!-- <%= form_tag({ controller: 'issue_lifecycle_settings', action: 'save' }, method: 'post') do %>
+#   <label for="api_key">API Key:</label>
+#   <%= text_field_tag 'api_key', @api_key %>
+
+#   <label for="redmine_url">Redmine URL:</label>
+#   <%= text_field_tag 'redmine_url', @redmine_url %>
+
+#   <%= submit_tag 'Save' %>
+# <% end %> -->
+
+<!-- <%= form_tag({ controller: 'issue_lifecycle_settings', action: 'save' }, method: 'post', class: 'custom-form') do %>
+  <style>
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+
+  <div class="form-group">
+    <%= label_tag 'api_key', 'API Key:', class: 'form-label' %>
+    <%= text_field_tag 'api_key', @api_key, class: 'form-control', placeholder: 'Enter your API Key' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag 'redmine_url', 'Redmine URL:', class: 'form-label' %>
+    <%= text_field_tag 'redmine_url', @redmine_url, class: 'form-control', placeholder: 'Enter your Redmine URL' %>
+  </div>
+
+  <div class="form-group">
+    <%= submit_tag 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %> -->
+
+<!-- app/views/settings/_your_plugin.html.erb dosyasında -->
+<%= form_for :plugin_settings, url: { action: 'plugin', id: 'issue_lifecycle' } do |f| %>
+  <p>
+    <%= f.label :api_key %><br />
+    <%= f.text_field :api_key %>
+  </p>
+  <p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </p>
+  <%= submit_tag l(:button_save) %>
+<% end %>
