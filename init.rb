@@ -10,7 +10,5 @@ Redmine::Plugin.register :issue_lifecycle do
 	  permission :view_issue_lifecycle, :issue_lifecycle => :index
 	end
 
-	# settings partial: 'settings/issue_lifecycle_settings', default: { 'api_key' => '', 'url' => '' }
-
 	menu :project_menu, :issue_lifecycle, { :controller => 'issue_lifecycle', :action => 'index' }, :caption => 'Issue Lifecycle', :after => :issues, :param => :project_id
   end

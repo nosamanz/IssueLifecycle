@@ -1,0 +1,64 @@
+.show-more-btn {
+	color: #a8a8a8;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 0%;
+}
+
+.show-more-btn:hover {
+	color: #00adb3;
+}
+
+.additional-time,
+.additional-status {
+	display: none;
+}
+.thCl {
+	font-size: xx-large;
+	text-align: center;
+	font-weight: bold;
+	font-style: normal;
+}
+.thCenter {
+	text-align: center;
+}
+.totalHours {
+	font-size: x-large;
+	padding: 0%;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: bolder;
+	text-align: center;
+}
+.isId
+{
+	font-size: medium;
+	text-align: center;
+	font-weight: bold;
+	font-style: normal;
+}
+.isId2
+{
+	font-size: xx-large;
+	text-align: center;
+	font-weight: bold;
+	font-style: normal;
+	padding: 0%;
+}
+
+#content {
+	background-color: rgb(33, 37, 41);
+}
+#footer {
+	background-color: rgb(33, 37, 41);
+}
+.containerF {
+	background-color: rgb(33, 37, 41);
+	padding: 50px;
+}
+.containerS {
+	background-color: rgb(33, 37, 41);
+	padding: 20px;
+}
+.table-row:hover {
+	background-color: rgb(109, 1, 93);
+}
