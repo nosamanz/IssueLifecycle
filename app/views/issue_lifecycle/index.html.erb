@@ -7,8 +7,10 @@
     <title>Issue Lifecycle Data</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
     <style>
         /*.modal {
             display: none;
@@ -65,8 +67,9 @@
         }
         .totalHours {
             font-size: x-large;
+            padding: 0%;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            float: center;
+            font-weight: bolder;
             text-align: center;
         }
         .isId
@@ -98,6 +101,9 @@
         .containerS {
             background-color: rgb(33, 37, 41);
             padding: 20px;
+        }
+        .table-row:hover {
+            background-color: rgb(109, 1, 93);
         }
     </style>
 </head>
@@ -136,6 +142,11 @@
                             new DataTable('#issuesTable', {
                                 info: false,
                                 paging: false,
+                                scrollCollapse: true,
+                                scrollY: '95vh',
+                                search: {
+                                    return: true
+                                }
                             });
                         });
                     })
@@ -145,13 +156,13 @@
             }
 
             function formatDataAsHTML(data) {
-                var html = '<table id="issuesTable" class="table-striped" style="width:100%">';
+                var html = '<table id="issuesTable" class="table-striped cell-border" style="width:100%">';
                 html += '<thead class="thead-dark" style="font-size:large;"><tr><th data-sortable="true">İş Numarası</th><th>Suanki Durum</th><th>Durumlar İçin Geçen Süre</th><th style="text-align:center;">Durum Değişiklikleri</th><th>Kategori</th></tr></thead>';
                 html += '<tbody>';
                 data.issues_data.forEach(function (issue) {
                     html += '<tr class="table-row" data-issue=\'' + JSON.stringify(issue) + '\' > ';
                     html += '<td class="isId2">' + issue.id + '</td>';
-                    html += '<td>' + (issue.status_now || '-') + '</td>';
+                    html += '<td class="isId">' + (issue.status_now || '-') + '</td>';
                     html += '<td class="issue-data" data-issue=\'' + JSON.stringify(issue.elapsed_time_status) + '\'>';
                     issue.elapsed_time_status.forEach(function (elapsed_time, index) {
                         var formattedTime = formatTime(elapsed_time.elapsed_hours, elapsed_time.elapsed_minutes);
@@ -202,7 +213,7 @@
                         categoryHtml += '</td>'
                         categoryHtml += '<td class="totalHours">'
                             let formattedTime = formatTime(category.total_elapsed_hours, category.total_elapsed_minutes);
-                            categoryHtml += '<strong>' + formattedTime + '</strong> ';
+                            categoryHtml += formattedTime ;
                         categoryHtml += '</td>';
                         categoryHtml += '</tr>';
                     });
