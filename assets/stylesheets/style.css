@@ -59,6 +59,15 @@
 	background-color: rgb(33, 37, 41);
 	padding: 20px;
 }
+.containerT {
+	padding: 200px;
+}
 .table-row:hover {
 	background-color: rgb(109, 1, 93);
+}
+
+#categoryChart {
+    width: 100%;
+	height: 800px;
+	padding: 40px;
 }
