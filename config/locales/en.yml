@@ -10,5 +10,8 @@ en:
   label_minute: " minutes"
   label_hour: " hours "
   label_total_elapsed_time: "Total Elapsed Time"
+  label_total_spent_time: "Total Spent Time : "
+  label_spent_time: "Spent Time"
+  label_user: "User"
   label_byen: "By "
   label_bytr: ""

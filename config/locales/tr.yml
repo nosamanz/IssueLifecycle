@@ -10,5 +10,8 @@ tr:
   label_minute: " dakika"
   label_hour: " saat "
   label_total_elapsed_time: "Toplam Geçen Süre"
+  label_total_spent_time: "Toplam Harcanan Zaman : "
+  label_spent_time: "Harcanan Zaman"
+  label_user: "Kullanıcı"
   label_bytr: " tarafından"
   label_byen: ""
