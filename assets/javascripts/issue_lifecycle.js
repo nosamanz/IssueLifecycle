@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 				}
 				userStHTML += '</td>'
 				userStHTML += '<td class="totalHours">'
-				userStHTML += user.total_hours + ' saat' ;
+				userStHTML += user.total_hours + translations.label_hour ;
 				userStHTML += '</td>';
 				userStHTML += '</tr>';
 			});
