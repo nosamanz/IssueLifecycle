@@ -19,7 +19,7 @@ IssueLifecycle is a plugin for Redmine, a issue tracking system. For each projec
 ## How to Install
 !!! First of all, you must have a ready and installed Redmine (version 5.1.1 or higher)
 
-1. Download the plugin with git clone or as a zip file.
+Download the plugin with git clone or as a zip file.
 
 <div>
   <button class="copy-button" onclick="copyToClipboard('git clone "clone_url"')"></button>
@@ -27,7 +27,27 @@ IssueLifecycle is a plugin for Redmine, a issue tracking system. For each projec
 
 </div>
 
-2. Copy the folder named "issue_lifecycle" inside the downloaded plugin folder (if it's zip, you should extract it to a folder) into the folder named "/plugins" in the directory where Redmine is installed. (redmine_path/plugins/issue_lifecycle)
+### Install with Bash Script
+
+I. Copy the downloaded file into the directory where Redmine is installed and then;
+
+<div>
+  <button class="copy-button" onclick="copyToClipboard('bash install-uninstall.sh install')"></button>
+  <pre><code id="copyable-code">bash install-uninstall.sh install</code></pre>
+</div>
+
+II. To Remove the Plugin;
+
+<div>
+  <button class="copy-button" onclick="copyToClipboard('bash install-uninstall.sh uninstall')"></button>
+  <pre><code id="copyable-code">bash install-uninstall.sh uninstall</code></pre>
+</div>
+
+III. If the plugin has been successfully installed, you can now delete the downloaded file (installation file).
+
+### Manual Installation 
+
+1. Copy the folder named "issue_lifecycle" inside the downloaded plugin folder (if it's zip, you should extract it to a folder) into the folder named "/plugins" in the directory where Redmine is installed. (redmine_path/plugins/issue_lifecycle)
 
 <div>
   <button class="copy-button" onclick="copyToClipboard('cp issue_lifecycle redmine_path/plugins')"></button>
@@ -36,7 +56,7 @@ IssueLifecycle is a plugin for Redmine, a issue tracking system. For each projec
   └── issue_lifecycle</code></pre>
 </div>
 
-3. Create a folder named "issue_lifecycle" in "public/plugin_assets" in the directory where Redmine is installed. Then copy the files in "assets" in the file you downloaded and paste them into "issue_lifecycle".
+2. Create a folder named "issue_lifecycle" in "public/plugin_assets" in the directory where Redmine is installed. Then copy the files in "assets" in the file you downloaded and paste them into "issue_lifecycle".
 
 <div>
   <button class="copy-button" onclick="copyToClipboard('mkdir redmine_path/public/plugin_assets/issue_lifecycle')"></button>
@@ -49,16 +69,18 @@ IssueLifecycle is a plugin for Redmine, a issue tracking system. For each projec
   └── stylesheets</code></pre>
 </div>
 
-4. After all these steps, the plugin should appear when you click on "Plugins" in the "Administration" tab at the top of the Redmine page (you must be logged in as admin).
+
+
+-> After all these steps, the plugin should appear when you click on "Plugins" in the "Administration" tab at the top of the Redmine page (you must be logged in as admin).
 
 <img width="498" alt="image" src="https://github.com/nosamanz/IssueLifecycle/assets/62108864/d9836826-b504-479b-aef5-512c86dd2361">
 
-5. Now you can activate the plugin for the project. (If you are creating a new project, you can activate it at the bottom when creating. If you already have a project, don't forget to activate it in the settings section of the project).
+-> Now you can activate the plugin for the project. (If you are creating a new project, you can activate it at the bottom when creating. If you already have a project, don't forget to activate it in the settings section of the project).
 
 <img width="320" height="320" alt="image" src="https://github.com/nosamanz/IssueLifecycle/assets/62108864/f9efd634-da7d-4d3e-b666-8bcd4ff7b8cb">
 <img width="425" alt="Ekran görüntüsü 2024-01-16 194819" src="https://github.com/nosamanz/IssueLifecycle/assets/62108864/6b0d7614-fad5-4e0c-ad88-fc5ad5f4a029">
 
-6. You can access the plugin from the Project page...
+-> You can access the plugin from the Project page...
 
 <img width="250" alt="Ekran görüntüsü 2024-01-16 195229" src="https://github.com/nosamanz/IssueLifecycle/assets/62108864/3d211a8a-31ce-4dd8-a99a-17d481992a67">
 
@@ -69,14 +91,35 @@ IssueLifecycle bir iş takip sistemi olan Redmine'a eklenti olarak geliştirilmi
 ## Nasıl Yüklenir
 !!! Öncelikle hazir ve kurulu bir Redmine a sahip olmalisiniz. (5.1.1 veya daha üst bir sürüm)
 
-1. Git clone ile ya da zip dosyasi olarak eklentiyi indiriyoruz.
+Git clone ile ya da zip dosyasi olarak eklentiyi indiriyoruz.
 
 <div>
   <button class="copy-button" onclick="copyToClipboard('git clone "clone_url"')"></button>
   <pre><code id="copyable-code">git clone "clone_url"</code></pre>
 </div>
 
-2. İndirdiğimiz eklenti klasörümüzün (zip ise bir klasore cikariyoruz) içindeki "issue_lifecycle" adlı klasörümüzü Redmine'in kurulu olduğu dizinin içindeki "/plugins" adlı klasörün içine atıyoruz/kopyalıyoruz. (redmine_path/plugins/issue_lifecycle)
+### Bash Script İle Kurma
+
+I. İndirdiğimiz dosyayı Redmine'ın kurulu olduğu dizinin içine atiyoruz ve ardından;
+
+<div>
+  <button class="copy-button" onclick="copyToClipboard('bash install-uninstall.sh install')"></button>
+  <pre><code id="copyable-code">bash install-uninstall.sh install</code></pre>
+</div>
+
+II. Eklentiyi Kaldirmak için;
+
+<div>
+  <button class="copy-button" onclick="copyToClipboard('bash install-uninstall.sh uninstall')"></button>
+  <pre><code id="copyable-code">bash install-uninstall.sh uninstall</code></pre>
+</div>
+
+III. Eklenti başarılı bir şekilde kurulduysa indirdiğimiz (yükleme dosyası) dosyayı artık silebilirsiniz.
+
+
+### Manuel Kurulum
+
+1. İndirdiğimiz eklenti klasörümüzün (zip ise bir klasore cikariyoruz) içindeki "issue_lifecycle" adlı klasörümüzü Redmine'in kurulu olduğu dizinin içindeki "/plugins" adlı klasörün içine atıyoruz/kopyalıyoruz. (redmine_path/plugins/issue_lifecycle)
 
 <div>
   <button class="copy-button" onclick="copyToClipboard('cp issue_lifecycle redmine_path/plugins')"></button>
@@ -85,7 +128,7 @@ IssueLifecycle bir iş takip sistemi olan Redmine'a eklenti olarak geliştirilmi
   └── issue_lifecycle</code></pre>
 </div>
 
-3. Redmine'ın kurulu olduğu dizinin içinde bulunan "public/plugin_assets" 'in içine "issue_lifecycle" adında bir klasör oluşturuyoruz. Ardından indirdiğimiz dosyada "assets"in içindeki dosyaları ("javascripts" ve "stylesheets") kopyaliyoruz ve "issue_lifecycle" in yapıştırıyoruz.
+2. Redmine'ın kurulu olduğu dizinin içinde bulunan "public/plugin_assets" 'in içine "issue_lifecycle" adında bir klasör oluşturuyoruz. Ardından indirdiğimiz dosyada "assets"in içindeki dosyaları ("javascripts" ve "stylesheets") kopyaliyoruz ve "issue_lifecycle" in yapıştırıyoruz.
 
 <div>
   <button class="copy-button" onclick="copyToClipboard('mkdir redmine_path/public/plugin_assets/issue_lifecycle')"></button>
@@ -97,15 +140,17 @@ IssueLifecycle bir iş takip sistemi olan Redmine'a eklenti olarak geliştirilmi
   └── stylesheets</code></pre>
 </div>
 
-4. Tum bu işlemlerden sonra Redmine sayfasının üst kısmında bulunan "Yönetim" sekmesindeki (admin olarak giriş yapmış olmalısınız) "Eklentiler" kısmına tıkladığımızda eklentimiz görünüyor olmalı.
+
+
+-> Tum bu işlemlerden sonra Redmine sayfasının üst kısmında bulunan "Yönetim" sekmesindeki (admin olarak giriş yapmış olmalısınız) "Eklentiler" kısmına tıkladığımızda eklentimiz görünüyor olmalı.
 
 <img width="526" alt="image" src="https://github.com/nosamanz/IssueLifecycle/assets/62108864/7489786f-4629-412c-8641-4e9068b919c7">
 
-5. Artık eklentimizi proje için aktif edebiliriz. (Eğer yeni bir proje oluşturuyorsanız oluştururken alt kısımdan aktif edebilirsiniz. Zaten olan bir projeniz varsa projenin ayarlar kısmından aktif etmeyi unutmayın.)
+-> Artık eklentimizi proje için aktif edebiliriz. (Eğer yeni bir proje oluşturuyorsanız oluştururken alt kısımdan aktif edebilirsiniz. Zaten olan bir projeniz varsa projenin ayarlar kısmından aktif etmeyi unutmayın.)
 
 <img width="300" alt="newproject" src="https://github.com/nosamanz/IssueLifecycle/assets/62108864/a440881e-b34e-4390-89a7-7b5b8c3a6568">
 <img width="425" alt="newprojectt" src="https://github.com/nosamanz/IssueLifecycle/assets/62108864/ca5e2399-0b2c-4b08-9b64-57bd4160be55">
 
-6. Eklentiye Projenin sayfasindan ulaşabilirsiniz...
+-> Eklentiye Projenin sayfasindan ulaşabilirsiniz...
 
 <img width="250" alt="Ekran görüntüsü 2024-01-16 182120" src="https://github.com/nosamanz/IssueLifecycle/assets/62108864/029c1172-5e95-46e7-85eb-3b48b2a40018">
