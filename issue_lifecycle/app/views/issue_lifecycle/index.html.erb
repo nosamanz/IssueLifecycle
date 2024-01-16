@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="<%= current_language %>">
+<head>
+    <meta charset="UTF-8">
+    <meta class="dark-mode" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Lifecycle Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/plugin_assets/issue_lifecycle/stylesheets/style.css">
+    <script>
+        let translations = {
+            label_issue: '<%= l(:label_issue) %>',
+            label_issue_number: '<%= l(:label_issue_number) %>',
+            label_issue_numbers: '<%= l(:label_issue_numbers) %>',
+            label_current_status: '<%= l(:label_current_status) %>',
+            label_elapsed_time_for_statuses: '<%= l(:label_elapsed_time_for_statuses) %>',
+            label_status_changes: '<%= l(:label_status_changes) %>',
+            label_category: '<%= l(:label_category) %>',
+            label_minute: '<%= l(:label_minute) %>',
+            label_hour: '<%= l(:label_hour) %>',
+            label_byen: '<%= l(:label_byen) %>',
+            label_bytr: '<%= l(:label_bytr) %>',
+            label_total_elapsed_time: '<%= l(:label_total_elapsed_time) %>',
+            label_total_spent_time: '<%= l(:label_total_spent_time) %>',
+            label_spent_time: '<%= l(:label_spent_time) %>',
+            label_user: '<%= l(:label_user) %>',
+        };
+    </script>
+    <script type="text/javascript" src="/plugin_assets/issue_lifecycle/javascripts/issue_lifecycle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-dark">
+    <!-- <h1></h1> -->
+    <div class="C"><%= l(:label_issue_lifecycle) %></div>
+    <div id="projectName"></div>
+    <div class="containerF">
+        <div id="dataContainer"></div>
+    </div>
+    <div class="containerS">
+        <div id="categoryTableContainer" class="table table-responsive-sm "></div>
+    </div>
+    <div id="categoryChart"></div>
+    <div class="containerT">
+        <div id="userTableContainer" class="table table-responsive-sm "></div>
+    </div>
+    <div id="userChart"></div>
+    <div id="totalSpentTime"></div>
+</body>
+
+</html>
