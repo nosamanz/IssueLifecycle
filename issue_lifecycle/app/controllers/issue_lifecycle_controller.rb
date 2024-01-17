@@ -1,5 +1,4 @@
 class IssueLifecycleController < ApplicationController
-	# before_action :find_project, only: [:index]
 	before_action :find_project, only: [:data]
 
 	def data
@@ -14,25 +13,6 @@ class IssueLifecycleController < ApplicationController
 		  status = issue.status.name
 		  issue_category = issue.category.try(:name)
 		  issue_creation_time = issue.created_on
-		#   user_ids = issue.journals.map { |journal| journal.user_id }.uniq
-		#   puts "user_ids: #{user_ids}, issue_id: #{issue_id}"
-
-		#   user_ids.each do |user_id|
-		# 	  hours = get_time_spent(user_id, issue.id)
-		# 	  user = User.find(user_id).name
-
-		# 	  puts "user_id: #{user_id}, user: #{user}, hours: #{hours}"
-		# 	  existing_user_entry = user_spent_time.find { |entry| entry[:user] == user }
-
-		# 	  if existing_user_entry
-		# 		existing_user_entry[:total_hours] += hours
-		# 	  else
-		# 		user_spent_time << {
-		# 		  user: user,
-		# 		  total_hours: hours
-		# 		}
-		# 	  end
-		#   end
 
 		  issue_data = {
 			id: issue_id,
@@ -44,7 +24,6 @@ class IssueLifecycleController < ApplicationController
 			total_elapsed_hours: 0,
 			total_elapsed_minutes: 0,
 		  }
-
 
 			process_journals(issue.journals, issue_data)
 			if (issue_data[:elapsed_time_status].empty?)
@@ -71,8 +50,16 @@ class IssueLifecycleController < ApplicationController
 	end
 
 	def find_project
-	  @project = Project.find(params[:project_id])
-	end
+		begin
+		  @project = Project.find(params[:project_id])
+		rescue ActiveRecord::RecordNotFound => e
+		  puts "Error: Project not found - #{e.message}"
+		  @project = nil
+		rescue => e
+		  puts "Unexpected error occurred - #{e.message}"
+		  @project = nil
+		end
+	  end
 
 	def index
 		respond_to do |format|
@@ -83,35 +70,39 @@ class IssueLifecycleController < ApplicationController
 	private
 
 	def process_journals(journals, issue_data)
-	  previous_status = nil
-	  previous_timestamp = nil
-	  current_status = nil
+		begin
+		  previous_status = nil
+		  previous_timestamp = nil
+		  current_status = nil
 
-	  journals.each_with_index do |journal, index|
-
-		next if journal.details.empty? || journal.details.first.prop_key != 'status_id'
-		elapsed_time = journal.created_on - previous_timestamp if previous_timestamp
-		journal.details.each do |detail|
-			if detail.property == 'attr' && detail.prop_key == 'status_id'
+		  journals.each_with_index do |journal, index|
+			next if journal.details.empty? || journal.details.first.prop_key != 'status_id'
+			elapsed_time = journal.created_on - previous_timestamp if previous_timestamp
+			journal.details.each do |detail|
+			  if detail.property == 'attr' && detail.prop_key == 'status_id'
 				if previous_status.nil? && previous_timestamp.nil?
-					elapsed_time = journal.created_on - issue_data[:created_on]
-					current_status = IssueStatus.find(detail.value).name if detail.prop_key == 'status_id'
+				  elapsed_time = journal.created_on - issue_data[:created_on]
+				  current_status = IssueStatus.find(detail.value).name if detail.prop_key == 'status_id'
 				else
-					current_status = IssueStatus.find(detail.value).name if detail.prop_key == 'status_id'
+				  current_status = IssueStatus.find(detail.value).name if detail.prop_key == 'status_id'
 				end
-			previous_status = IssueStatus.find(detail.old_value).name if detail.old_value
-			previous_timestamp = journal.created_on
-			changed_by = journal.user.name
-			save_elapsed_time_status(issue_data, previous_status, elapsed_time) if previous_status && elapsed_time
-			save_status_changes(issue_data, previous_status, current_status, changed_by)
-			if index == journals.size - 1
+				previous_status = IssueStatus.find(detail.old_value).name if detail.old_value
+				previous_timestamp = journal.created_on
+				changed_by = journal.user.name
+				save_elapsed_time_status(issue_data, previous_status, elapsed_time) if previous_status && elapsed_time
+				save_status_changes(issue_data, previous_status, current_status, changed_by)
+				if index == journals.size - 1
 				  elapsed_time = Time.now - journal.created_on
 				  current_status = IssueStatus.find(journal.details.last.value).name
 				  save_elapsed_time_status(issue_data, current_status, elapsed_time)
+				end
+			  end
 			end
-			end
+		  end
+		rescue => e
+		  puts "Unexpected error occurred - #{e.message}"
 		end
-	end
+	  end
 end
 
 def save_elapsed_time_status(issue_data, status_name, elapsed_time)
@@ -125,7 +116,6 @@ def save_elapsed_time_status(issue_data, status_name, elapsed_time)
 		status_name: status_name,
 		elapsed_hours: hours,
 		elapsed_minutes: minutes,
-		# elapsed_time: elapsed_time / 3600
 	}
 end
 
@@ -161,21 +151,14 @@ def project_details
 			total_hours: 0
 		  }
 
-		#   puts "User: #{user.name}"
-
-		#   puts 'TIME ENTRIES'
 		  time_entries.each do |time_entry|
-			# puts "User ID: #{time_entry.user_id}"
-			# puts "Hours: #{time_entry.hours}"
 
 			user_data[:total_hours] += time_entry.hours
 
 			if time_entry.issue_id.present?
 			  associated_issue = Issue.find(time_entry.issue_id)
-			#   puts "Associated Issue ID: #{associated_issue.id}"
-			  # Diğer Issue özelliklerini buraya ekleyebilirsiniz
 			else
-			#   puts "Bu TimeEntry, bir Issue ile ilişkilendirilmemiştir."
+			  puts "TimeEntry is not associated with an Issue"
 			end
 
 			user_data[:time_entries] << {
@@ -186,20 +169,6 @@ def project_details
 
 		  data[:users] << user_data
 		end
-
-		# Tüm kullanıcıları ve bilgilerini yazdırma
-		# puts 'TÜM KULLANICILAR VE BİLGİLERİ'
-	# 	data[:users].each do |user_data|
-	# 	  puts "User: #{user_data[:name]}"
-	# 	  puts "Toplam Saat: #{user_data[:total_hours]}"
-
-	# 	  user_data[:time_entries].each do |time_entry|
-	# 		puts "Hours: #{time_entry[:hours]}"
-	# 		puts "Issue ID: #{time_entry[:issue_id]}"
-	# 	  end
-
-	# 	  puts '-' * 20 # Kullanıcı bilgilerini ayırmak için bir çizgi ekledik
-	# 	end
 	  else
 		puts 'User not found in this project.'
 	  end
@@ -207,7 +176,6 @@ def project_details
 	  return data
 	rescue => e
 	  puts "Error: #{e.message}"
-	  # Eğer bir hata oluştuysa, e.message ile hatanın açıklamasını alabilirsiniz
 	end
   end
 

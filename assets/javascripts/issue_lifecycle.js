@@ -13,51 +13,27 @@ document.addEventListener('DOMContentLoaded', async function () {
 		let dataContainer = document.getElementById('dataContainer');
 		dataContainer.innerHTML = await issueTableHTML(data.issues_data);
 
-
 		$(document).ready(function () {
-			let a = new DataTable('#issuesTable', {
+			new DataTable('#issuesTable', {
 				info: false,
 				paging: false,
 				scrollCollapse: true,
 				scrollY: '95vh',
-				search: {
-					return: true
-				},
-				// columns: [
-				// 	null,null,null,
-				// 	{ orderable: false },null
-				// ],
+				search: { return: true },
 			});
-			// a.on('order.dt', function (e, settings, order) {
-				// 	if (order && order.length > 0 && order[0].col === 2) {
-					// 		console.log("OZEL SIRALAMA")
-					// 		// Burada özel sıralama mantığını tanımlayın
-					// 		// Örneğin, bir özel veri özelliği veya veri kullanarak sıralama yapabilirsiniz
-					// 		// Örneğin, özel bir veri özelliğiniz 'data-custom-sort' ise şu şekilde kullanabilirsiniz:
-			// 		// order[0][0] = { attr: 'data-custom-sort', order: 'asc' };
-			// 		order[0][0] = { data: 2, type: 'elapsed-time' };
-			// 	}
-			// });
-			// $.fn.dataTable.ext.order['elapsed-time'] = function (settings, col) {
-				// 	return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-					// 		const elapsedData = $(td).find('.issue-data').data('issue');
-					// 		return elapsedData ? elapsedData.reduce((sum, entry) => sum + entry.elapsed_time, 0) : 0;
-					// 	});
-					// };
-				});
+		});
 
-				dataContainer = document.getElementById('projectName');
-				dataContainer.innerHTML = data.project_name;
+		dataContainer = document.getElementById('projectName');
+		dataContainer.innerHTML = data.project_name;
 
-				createCategoryChart(data.issues_data);
+		createCategoryChart(data.issues_data);
 
-				dataContainer = document.getElementById('categoryTableContainer');
-				dataContainer.innerHTML = await categoryTableHTML(data.total_elapsed_time_category);
+		dataContainer = document.getElementById('categoryTableContainer');
+		dataContainer.innerHTML = await categoryTableHTML(data.total_elapsed_time_category);
 
-				console.log(data.user_spent_time);
-				dataContainer = document.getElementById('userTableContainer');
-				dataContainer.innerHTML = await userTableHTML(data.user_spent_time);
-				createUserChart(data.user_spent_time);
+		dataContainer = document.getElementById('userTableContainer');
+		dataContainer.innerHTML = await userTableHTML(data.user_spent_time);
+		createUserChart(data.user_spent_time);
 
 		dataContainer = document.getElementById('totalSpentTime');
 		dataContainer.innerHTML = await userTSTHTML(data.user_spent_time.users);
