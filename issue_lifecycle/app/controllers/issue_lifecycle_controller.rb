@@ -177,7 +177,4 @@ def project_details
 	rescue => e
 	  puts "Error: #{e.message}"
 	end
-  end
-
-
 end
