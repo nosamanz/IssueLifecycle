@@ -1,0 +1,62 @@
+<div class="category-table">
+	<%
+		def formatTime(hours, minutes)
+			formatted_time = ''
+			if minutes >= 60
+				tmp = minutes
+				hours += minutes / 60
+				minutes = tmp % 60
+			end
+			if hours > 0
+				formatted_time += "#{hours} #{l(:label_hour)}"
+			end
+			formatted_time += "#{minutes} #{l(:label_minute)}"
+			formatted_time
+		end
+	%>
+	<table class="table table-dark display table-striped" style="width:100%">
+		<thead class="thead-dark">
+			<tr>
+				<th class="thCl" data-sortable="true">
+					<%= l(:label_category) %>
+				</th>
+				<th class="thCl" data-sortable="true">
+					<%= l(:label_issue_numbers) %>
+				</th>
+				<th class="thCl" data-sortable="true">
+					<%= l(:label_total_elapsed_time) %>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @tetc.each do |category| %>
+				<tr>
+					<td>
+						<%= category[:category] %>
+					</td>
+					<td class="isId">
+						<% category[:issue_ids].each_with_index do |issue_id, index| %>
+							<% if index <= 10 %>
+								<span><strong>#</strong><%=issue_id %></span>
+							<% else %>
+								<span class="additional" style="display: none;"><strong>#</strong><%= issue_id %></span>
+							<% end %>
+						<% end %>
+						<% if category[:issue_ids].length >= 10  %>
+							<button class="showMoreBtn">...</button>
+						<% end %>
+					</td>
+					<td class="totalHours">
+						<%= formatted_time = formatTime(category[:total_elapsed_hours], category[:total_elapsed_minutes]) %>
+						<% formatted_time %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<div class="categoryChart" data-issue='<%= @issues_data.to_json %>'>
+	<%= javascript_include_tag '/plugin_assets/issue_lifecycle/javascripts/category_chart' %>
+	<canvas id="category-chart"></canvas>
+</div>

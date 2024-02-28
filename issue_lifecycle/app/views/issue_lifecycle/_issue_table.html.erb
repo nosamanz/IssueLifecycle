@@ -1,0 +1,64 @@
+<div class="table-container">
+	<%
+		def formatTime(hours, minutes)
+			formatted_time = ''
+			if minutes >= 60
+				tmp = minutes
+				hours += minutes / 60
+				minutes = tmp % 60
+			end
+			if hours > 0
+				formatted_time += "#{hours} #{l(:label_hour)}"
+			end
+			formatted_time += "#{minutes} #{l(:label_minute)}"
+			formatted_time
+		end
+	%>
+	<table id="issuesTable" class="table-dark display table-striped" style="width:100%">
+		<thead class="thead-dark" style="font-size:large">
+			<tr>
+				<th><%= l(:label_issue_number) %></th>
+				<th><%= l(:label_current_status) %></th>
+				<th><%= l(:label_elapsed_time_for_statuses) %></th>
+				<th style="text-align:center"><%= l(:label_status_changes) %></th>
+				<th><%= l(:label_category) %></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @issues_data.each do |issue| %>
+			<tr class="table-row" data-issue='<%= issue.to_json %>'>
+				<td class="isId2"><%= issue[:id] %></td>
+				<td class="isId"><%= issue[:status_now] %></td>
+				<td class="issue-data">
+					<% issue[:elapsed_time_status].sort_by! { |status| [status[:elapsed_hours], status[:elapsed_minutes]] } %>
+					<% issue[:elapsed_time_status].each_with_index do |elapsed_time, index| %>
+						<% formatted_time = formatTime(elapsed_time[:elapsed_hours], elapsed_time[:elapsed_minutes]) %>
+						<% if index < 2 %>
+							<strong><%= elapsed_time[:status_name] %>:</strong> <%= formatted_time %> <br>
+						<% else %>
+							<span class="additional" style="display: none;"><strong><%= elapsed_time[:status_name] %>:</strong> <%= formatted_time %> <br></span>
+						<% end %>
+					<% end %>
+					<% if issue[:elapsed_time_status].length > 2 %>
+						<button id="it" class="showMoreBtn">...</button>
+					<% end %>
+				</td>
+				<td class="issue-status" style="text-align:center;">
+					<% issue[:status_changes].each_with_index do |status_change, index| %>
+						<% if index < 3 %>
+							<%= status_change[:from_status] %> <span style="font-size:x-large;">&#8594;</span><%= status_change[:to_status] %> <strong>( <%= l(:label_byen) %><%= status_change[:changed_by] %></strong><%= l(:label_bytr) %>) <br>
+						<% else %>
+							<span class="additional" style="display: none;"><%= status_change[:from_status] %> <span style="font-size:x-large;">&#8594;</span> <%= status_change[:to_status] %> <strong>( <%= l(:label_byen) %> <%= status_change[:changed_by] %></strong><%= l(:label_bytr) %>)<br></span>
+						<% end %>
+					<% end %>
+					<% if issue[:status_changes].length > 3 %>
+						<button id="it" class="showMoreBtn">...</button>
+					<% end %>
+				</td>
+				<td> <%= issue[:category]%></td>
+				<canvas id="chart-canvas" style="display: none;"></canvas>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

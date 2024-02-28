@@ -1,0 +1,14 @@
+<div class="usersChart" data-users='<%= @user_spent_time[:users].to_json %>'>
+	<%= javascript_include_tag '/plugin_assets/issue_lifecycle/javascripts/users_chart' %>
+	<canvas id="users-chart"></canvas>
+</div>
+<div id="totalSpentTime">
+	<%= l(:label_total_spent_time) %>
+	<% total = 0 %>
+	<% @user_spent_time[:users].each do |user| %>
+		<% total += user[:total_hours] %>
+	<% end %>
+	<%= @user_spent_time[:total_spent_time] %>
+	<%= total %>
+	<%= l(:label_hour) %>
+</div>
